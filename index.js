@@ -28,6 +28,7 @@ app.get("/api/:date", function (req, res) {
   } else {
     const utcDate = new Date(Number(request)).toString()
     res.json({"unix": request, "utc": utcDate});
+    return { error : "Invalid Date" };
   }
   
 });
