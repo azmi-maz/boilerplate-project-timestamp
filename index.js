@@ -23,10 +23,11 @@ app.get("/", function (req, res) {
 app.get("/api/:date", function (req, res) {
   const request = req.params.date;
   const toMilliSecs = new Date(request).getTime();
+  const toDateInString = new Date(toMilliSecs).toString();
   if (isNaN(toMilliSecs) === false) {
-    res.json({"unix": toMilliSecs, "utc": new Date(toMilliSecs)});
+    res.json({"unix": toMilliSecs, "utc": toDateInString});
   } else {
-    const utcDate = new Date(Number(request))
+    const utcDate = new Date(Number(request)).toString();
     res.json({"unix": request, "utc": utcDate});
 
     
