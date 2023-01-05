@@ -36,8 +36,8 @@ function convertDate(dateString) {
 // your first API endpoint... 
 app.get("/api/:date", function (req, res) {
   // console.log(new Date("Fri, 25 Dec 2015 00:00:00 GMT").toString())
-  // const request = req.params.date;
-  const request = "Fri, 25 Dec 2015 00:00:00 GMT";
+  const request = req.params.date;
+  // const request = "Fri, 25 Dec 2015 00:00:00 GMT";
   const toMilliSecs = new Date(request).getTime();
   const toDateInput = new Date(toMilliSecs);
   const toDateInString = convertDate(toDateInput);
@@ -48,7 +48,11 @@ app.get("/api/:date", function (req, res) {
     const convertedDate = convertDate(utcDate);
     res.json({"unix": Number(request), "utc": convertedDate});
   } else {
-
+    const nowTime = new Date();
+    const nowMilli = Number(nowTime.getTime())
+    const nowDate = convertDate(nowTime);
+    res.json({ error : "Invalid Date" });
+    res.json({"unix": nowMilli, "utc": nowDate});
   }
   
 });
