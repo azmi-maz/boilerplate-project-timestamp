@@ -18,7 +18,6 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
 function convertDate(dateString) {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -30,7 +29,7 @@ function convertDate(dateString) {
   const minute = dateString.getMinutes()
   const seconds = dateString.getSeconds()
   const combinedDate =
-  `${day}, ${date} ${month} ${year} ${hour}:${minute}:${seconds} GMT`
+  `${day}, ${date} ${month} ${year} ${hour < 10? "0" + hour : "" + hour}:${minute < 10? "0" + minute : "" + minute}:${seconds < 10? "0" + seconds : "" + seconds} GMT`
   return combinedDate
 }
 
