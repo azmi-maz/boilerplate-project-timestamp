@@ -30,7 +30,7 @@ function convertDate(dateString) {
   const minute = dateString.getMinutes()
   const seconds = dateString.getSeconds()
   const combinedDate =
-  `${day}, ${date} ${month} ${year} 0${hour}:0${minute}:0${seconds} GMT`
+  `${day}, ${date} ${month} ${year} ${hour}:${minute}:${seconds} GMT`
   return combinedDate
 }
 
