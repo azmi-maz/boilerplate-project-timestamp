@@ -19,16 +19,33 @@ app.get("/", function (req, res) {
 });
 
 
+function convertDate(dateString) {
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  const day = days[dateString.getDay()]
+  const month = months[dateString.getMonth()]
+  const date = dateString.getDate()
+  const year = dateString.getFullYear()
+  const hour = dateString.getHours()
+  const minute = dateString.getMinutes()
+  const seconds = dateString.getSeconds()
+  const combinedDate =
+  `${day}, ${date} ${month} ${year} 0${hour}:0${minute}:0${seconds} GMT`
+  return combinedDate
+}
+
 // your first API endpoint... 
 app.get("/api/:date", function (req, res) {
   const request = req.params.date;
   const toMilliSecs = new Date(request).getTime();
-  const toDateInString = new Date(toMilliSecs).toString();
+  const toDateInput = new Date(toMilliSecs);
+  const toDateInString = convertDate(toDateInput);
   if (isNaN(toMilliSecs) === false) {
     res.json({"unix": toMilliSecs, "utc": toDateInString});
   } else {
-    const utcDate = new Date(Number(request)).toString();
-    res.json({"unix": request, "utc": utcDate});
+    const utcDate = new Date(Number(request));
+    const convertedDate = convertDate(utcDate);
+    res.json({"unix": request, "utc": convertedDate});
 
     
     // return { error : "Invalid Date" };
