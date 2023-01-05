@@ -48,11 +48,7 @@ app.get("/api/:date", function (req, res) {
     const convertedDate = convertDate(utcDate);
     res.json({"unix": Number(request), "utc": convertedDate});
   } else {
-    const nowTime = new Date();
-    const nowMilli = Number(nowTime.getTime())
-    const nowDate = convertDate(nowTime);
-    res.json({ error : "Invalid Date" });
-    res.json({"unix": nowMilli, "utc": nowDate});
+
   }
   
 });
