@@ -20,7 +20,7 @@ app.get("/", function (req, res) {
 
 
 // your first API endpoint... 
-app.get("/api/:date", function (req, res) {
+app.get("/api/:date?", function (req, res) {
   const request = req.params.date;
   const toMilliSecs = new Date(request).getTime();
   if (isNaN(toMilliSecs) === false) {
