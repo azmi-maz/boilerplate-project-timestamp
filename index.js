@@ -36,7 +36,6 @@ function convertDate(dateString) {
 // your first API endpoint... 
 app.get("/api/:date", function (req, res) {
   const request = req.params.date;
-  // const request = "";
   const toMilliSecs = new Date(request).getTime();
   const toDateInput = new Date(toMilliSecs);
   const toDateInString = convertDate(toDateInput);
@@ -48,17 +47,23 @@ app.get("/api/:date", function (req, res) {
     res.json({"unix": Number(toMilliSecs), "utc": toDateInString});
   } else if (isNaN(toMilliSecs) === true && isNaN(getUtcDate) === false)   {
     res.json({"unix": Number(request), "utc": convertedDate});
-  } else if (request === "") {
-    res.json({"unix": nowMilli, "utc": nowDate});
   } else {
     res.json({ error : "Invalid Date" });
   }
   
 });
 
-// app.get("/api/hello", function (req, res) {
-//   res.json({greeting: 'hello API'});
-// });
+app.get("/api/", function (req, res) {
+  const request = req._eventsCount;
+  const nowMilli = Number(new Date().getTime());
+  const nowDate = convertDate(new Date(nowMilli));
+  
+  if (request === 1) {
+    res.json({"unix": nowMilli, "utc": nowDate});
+  } else {
+    
+  }
+});
 
 
 
