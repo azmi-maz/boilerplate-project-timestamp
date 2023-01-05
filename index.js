@@ -43,19 +43,19 @@ app.get("/api/:date", function (req, res) {
   const toDateInString = convertDate(toDateInput);
   if (isNaN(toMilliSecs) === false) {
     res.json({"unix": Number(toMilliSecs), "utc": toDateInString});
-  } else if ((isNaN(toMilliSecs) === true)) {
+  } else {
     const utcDate = new Date(Number(request));
     const convertedDate = convertDate(utcDate);
     res.json({"unix": Number(request), "utc": convertedDate});
-  } else {
-    const nowTime = new Date();
-    const nowMilli = Number(nowTime.getTime())
-    const nowDate = convertDate(nowTime);
-    res.json({ error : "Invalid Date" });
-    res.json({"unix": nowMilli, "utc": nowDate});
   }
   
 });
+
+  // const nowTime = new Date();
+  // const nowMilli = Number(nowTime.getTime())
+  // const nowDate = convertDate(nowTime);
+  // res.json({ error : "Invalid Date" });
+  // res.json({"unix": nowMilli, "utc": nowDate});
 
 
 
