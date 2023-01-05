@@ -35,33 +35,30 @@ function convertDate(dateString) {
 
 // your first API endpoint... 
 app.get("/api/:date", function (req, res) {
-  // console.log(new Date("Fri, 25 Dec 2015 00:00:00 GMT").toString())
   const request = req.params.date;
-  // const request = 'Thu, 01 Jan 1970 00:00:00 GMT';
+  // const request = "";
   const toMilliSecs = new Date(request).getTime();
   const toDateInput = new Date(toMilliSecs);
   const toDateInString = convertDate(toDateInput);
+  const utcDate = new Date(Number(request));
+  const getUtcDate = utcDate.getTime();
+  const convertedDate = convertDate(utcDate);
+  
   if (isNaN(toMilliSecs) === false) {
     res.json({"unix": Number(toMilliSecs), "utc": toDateInString});
-  } else {
-    const utcDate = new Date(Number(request));
-    const convertedDate = convertDate(utcDate);
+  } else if (isNaN(toMilliSecs) === true && isNaN(getUtcDate) === false)   {
     res.json({"unix": Number(request), "utc": convertedDate});
+  } else if (request === "") {
+    res.json({"unix": nowMilli, "utc": nowDate});
+  } else {
+    res.json({ error : "Invalid Date" });
   }
   
 });
 
-  // const nowTime = new Date();
-  // const nowMilli = Number(nowTime.getTime())
-  // const nowDate = convertDate(nowTime);
-  // res.json({ error : "Invalid Date" });
-  // res.json({"unix": nowMilli, "utc": nowDate});
-
-  // const nowTime = new Date();
-  // const nowMilli = Number(nowTime.getTime())
-  // const nowDate = convertDate(nowTime);
-  // res.json({ error : "Invalid Date" });
-  // res.json({"unix": nowMilli, "utc": nowDate});
+// app.get("/api/hello", function (req, res) {
+//   res.json({greeting: 'hello API'});
+// });
 
 
 
