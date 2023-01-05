@@ -24,13 +24,13 @@ app.get("/api/:date", function (req, res) {
   const request = req.params.date;
   const toMilliSecs = new Date(request).getTime();
   if (isNaN(toMilliSecs) === false) {
-    res.json({"unix": toMilliSecs});
-    // res.json({"unix": toMilliSecs, "utc": new Date(toMilliSecs).toString()});
+    res.json({"unix": toMilliSecs, "utc": new Date(toMilliSecs)});
   } else {
-    const utcDate = new Date(Number(request)).toString()
-    res.json({"utc": utcDate});
-    // res.json({"unix": request, "utc": utcDate});
-    return { error : "Invalid Date" };
+    const utcDate = new Date(Number(request))
+    res.json({"unix": request, "utc": utcDate});
+
+    
+    // return { error : "Invalid Date" };
   }
   
 });
